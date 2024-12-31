@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create an Organization Dashboard - Your Food Sharing Website</title>
+
+    <!-- Add Bootstrap CSS Link -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Add Custom CSS Here (if needed) -->
+    <style>
+        .act{
+            margin: 5px;
+            width: 70px;
+            height: 50px;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar (You can include a navigation bar if needed) -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light d-flex flex-row justify-content-between">
+    <a class="navbar-brand" href="#">FoodBridge <img src="logo.png" alt="logo" height="90px" width="90px"></a>
+
+    <a href="index.html">
+        <button class="btn btn-secondary back">Back</button>
+    </a>
+    <!-- Include navigation links if needed -->
+</nav>
+
+<div class="container mt-5">
+    <h1 class="mb-4">Create an Organization Dashboard</h1>
+
+    <!-- Organization Information Section -->
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                    <form>
+                        <div class="card-header">Organization Information</div>
+                        <div class="card-body"></div>
+                        <!-- Organization information form fields go here -->
+                        <div class="form-group" style="padding: 10px;">
+                            <label for="orgName">Organization Name</label>
+                            <input type="text" class="form-control" id="orgName" placeholder="Enter your organization name">
+                        </div>
+                        <div class="form-group" style="padding: 10px;">
+                            <label for="orgDescription">Description</label>
+                            <textarea class="form-control" id="orgDescription" rows="3" placeholder="Enter a brief description of your organization"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="margin: 10px;">Save Information</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4" id="displayInfo" style="display: none;">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Saved Organization Information</div>
+                <div class="card-body">
+                    <p><strong>Organization Name:</strong> <span id="savedOrgName"></span></p>
+                    <p><strong>Description:</strong> <span id="savedOrgDescription"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Organization Information Section -->
+
+    <!-- Your Organization Donations Section -->
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <h2>Your Organization Requests</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Food Type</th>
+                        <th>Quantity</th>
+                        <th>Expiry Date</th>
+                        <th>Pick-up Location</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- List your organization's donation listings here -->
+                    <!-- Example row: -->
+                    <tr>
+                        <td>Gandhipuram</td>
+                        <td>20 units</td>
+                        <td>2023-09-30</td>
+                        <td>Gandhipuram</td>
+                        <td>
+                            <a href="#" class="btn btn-primary act">Pick up myself</a>
+                            <a href="#" class="btn btn-primary act">Request delivery</a>
+                            <a href="#" class="btn btn-danger act">Delete</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- End of Your Organization Donations Section -->
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    // Get references to the form and the displayInfo div
+    var form = document.querySelector("form");
+    var displayInfo = document.getElementById("displayInfo");
+
+    // Add a form submit event listener
+    form.addEventListener("submit", function (event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        // Get the input values
+        var orgName = document.getElementById("orgName").value;
+        var orgDescription = document.getElementById("orgDescription").value;
+
+        // Display the saved information
+        document.getElementById("savedOrgName").textContent = orgName;
+        document.getElementById("savedOrgDescription").textContent = orgDescription;
+
+        // Hide the form and display the saved information
+        form.style.display = "none";
+        displayInfo.style.display = "block";
+    });
+});
+</script>
+<!-- Add Bootstrap JS and jQuery (if needed) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

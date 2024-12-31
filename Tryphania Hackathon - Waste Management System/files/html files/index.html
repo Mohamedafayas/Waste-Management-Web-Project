@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>FOODBRIDGE</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+        <script src="index.js"></script>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+        <style>
+            /* Style the loading container */
+            @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+            body{
+                margin: 0;
+                padding: 0;
+                overflow: auto;
+            }
+            .loading-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: #ffffff; /* Background color of the loading screen */
+                z-index: 1000; /* Ensure it's on top of other content */
+            }
+    
+            /* Style the loading GIF */
+            .loading-gif {
+                width: 200px; /* Adjust the width as needed */
+                height: 200px; /* Adjust the height as needed */
+            }
+    
+            /* Fading animation */
+            .fade-out {
+                animation: fadeOut 1s ease-in-out 2s forwards;
+            }
+    
+            /* Hide the loading screen when content is loaded */
+            .loaded {
+                display: none;
+            }
+    
+            /* Keyframes for fading animation */
+            @keyframes fadeOut {
+                0% {
+                    opacity: 1;
+                }
+                100% {
+                    opacity: 0;
+                    display: none;
+                }
+            }
+            .h-button{
+                display: grid;
+                margin-left: auto;
+                margin-right: auto;
+                width: 20vw;
+            }
+            .nav{
+                height: 10vh;
+            }
+            
+            .title{
+                font-size: 10vh;
+            }
+            @keyframes carousel {
+                0%, 100% { opacity: 0; } /* Initial and final state (fading out) */
+                10%, 90% { opacity: 1; } /* Fade in for 10% of the animation duration */
+            }
+            .articel{
+                background-color: black;
+                height: 100vh;
+            }
+            .f-view{
+                margin: 60px;
+                color: white;
+                position: relative;
+                top: 250px;
+                background-color: rgba(0, 0, 0, 0.521);
+                padding: 20px;
+                border-radius: 20px;
+            }
+            .card-section{
+                padding: 50px;
+            }
+            @import url(https://fonts.googleapis.com/css?family=Oswald:300,400,700);
+            @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic);
+
+            /* Override UGG site */
+            #main {width: 100%; padding:0;}
+            .content-asset p {margin:0 auto;}
+            .breadcrumb {display:none;}
+
+            /* Helpers */
+            /**************************/
+            .margin-top-10 {padding-top:10px;}
+            .margin-bot-10 {padding-bottom:10px;}
+
+            /* Typography */
+            /**************************/
+            #parallax-world-of-ugg h1 {font-family: 'Anton', sans-serif; font-weight:400; text-transform: uppercase; color:rgb(255, 255, 255); padding:0; margin:0; text-shadow: rgb(0, 0, 0) 1px 0 10px;}
+            #parallax-world-of-ugg h2 {font-family: 'Oswald',sans-serif;font-size: 26px;text-align:center; color:rgb(0, 0, 0); z-index:10; opacity:.9;}
+            #parallax-world-of-ugg h3 {font-family: 'Oswald',sans-serif;font-size: 22px;text-align:center; color:rgb(0, 0, 0); z-index:10; opacity:.9;}
+            #parallax-world-of-ugg p {font-family:'Source Sans Pro', sans-serif; font-weight:400; font-size:14px; line-height:24px;}
+            .first-character {font-weight:400; float: left; font-size: 84px; line-height: 64px; padding-top: 4px; padding-right: 8px; padding-left: 3px; font-family: 'Source Sans Pro', sans-serif;}
+
+            .sc {color: #3b8595;}
+            .ny {color: #3d3c3a;}
+            .atw {color: #c48660;}
+
+            /* Section - Title */
+            /**************************/
+            #parallax-world-of-ugg .title {background: white; padding: 60px; margin:0 auto; text-align:center;}
+            #parallax-world-of-ugg .title h1 {font-size:35px; letter-spacing:8px;}
+
+            /* Section - Block */
+            /**************************/
+            #parallax-world-of-ugg .block {background: white; padding: 60px; width:820px; margin:0 auto;}
+            #parallax-world-of-ugg .block-gray {background: #f2f2f2;padding: 60px;}
+            #parallax-world-of-ugg .section-overlay-mask {position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: black; opacity: 0.70;}
+
+            /* Section - Parallax */
+            /**************************/
+            #parallax-world-of-ugg .parallax-one {padding-top: 200px; padding-bottom: 200px; overflow: hidden; position: relative; width: 100%; background-image: url(https://www.peoplesfundraising.com/image/1019ec13-ff0b-4698-9c94-e1ee8e004723); background-attachment: fixed; background-size: cover; -moz-background-size: cover; -webkit-background-size: cover; background-repeat: no-repeat; background-position: top center;text-align: center; font-family: 'Anton', sans-serif; }
+            #parallax-world-of-ugg .parallax-two {padding-top: 200px; padding-bottom: 200px; overflow: hidden; position: relative; width: 100%; background-image: url(https://files.globalgiving.org/pfil/5067/meal_sponsorship_to_poor_elderly_persons_in_andhra_pradesh.JPG?m=1445271286000); background-attachment: fixed; background-size: cover; -moz-background-size: cover; -webkit-background-size: cover; background-repeat: no-repeat; background-position: center center;text-align: center; font-family: 'Anton', sans-serif;}
+            #parallax-world-of-ugg .parallax-three {padding-top: 200px; padding-bottom: 200px; overflow: hidden; position: relative; width: 100%; background-image: url(https://www.smilefoundationindia.org/blog/wp-content/uploads/2022/11/Nutrition-for-Education-1024x683-1.jpg); background-attachment: fixed; background-size: cover; -moz-background-size: cover; -webkit-background-size: cover; background-repeat: no-repeat; background-position: center center;text-align: center; font-family: 'Anton', sans-serif;}
+
+            /* Extras */
+            /**************************/
+            #parallax-world-of-ugg .line-break {border-bottom:1px solid black; width: 150px; margin:0 auto;}
+
+            /* Media Queries */
+            /**************************/
+            @media screen and (max-width: 959px) and (min-width: 768px) {
+            #parallax-world-of-ugg .block {padding: 40px; width:620px;}
+            }
+            @media screen and (max-width: 767px) {
+            #parallax-world-of-ugg .block {padding: 30px; width:420px;}
+            #parallax-world-of-ugg h2 {font-size:30px;}
+            #parallax-world-of-ugg .block {padding: 30px;}
+            #parallax-world-of-ugg .parallax-one, #parallax-world-of-ugg .parallax-two, #parallax-world-of-ugg .parallax-three {padding-top:100px; padding-bottom:100px;}
+            }
+            @media screen and (max-width: 479px) {
+            #parallax-world-of-ugg .block {padding: 30px 15px; width:290px;}
+            }
+
+            .card {
+            border: 1px solid #ffffff; /* Set the default border style */
+            padding: 20px;
+            transition: box-shadow 0.3s;
+            width: 250px; /* Add a smooth transition for the box-shadow */
+            height: 400px;
+            margin: 10px;
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            }
+            .card1 {
+            border: 1px solid #ffffff; /* Set the default border style */
+            padding: 20px;
+            transition: box-shadow 0.3s;
+            width: 250px; /* Add a smooth transition for the box-shadow */
+            height: 250px;
+            margin: 10px;
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            }
+            .card ,.card1{
+                flex: 0 0 calc(33.33% - 20px); /* Adjust the width as needed */
+                margin: 10px;
+            }
+            .card-container {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                position: relative;
+                left: 160px; 
+            }
+            .card-container-1 {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                position: relative;
+            }
+            @media screen and (max-width: 1200px) and (min-width: 1000px){
+                .card-container{left: 90px;}
+            }
+            @media screen and (max-width: 959px) and (min-width: 768px){
+                .card-container{left: 90px;}
+            }
+            @media only screen and (max-width: 768px) {
+            .card-container{left: 120px;}
+            }
+            @media only screen and (max-width: 600px) and (max-width: 768px) {
+            .card-container{left: 90px;}
+            }
+            /* Define the box-shadow effect on hover */
+            .card:hover,.card1:hover {
+                box-shadow: 0 0 10px rgb(7, 123, 255); /* Add a subtle glow effect */
+            }
+            .swl{
+                font-size: 8vh;
+            }
+            @media only screen and (max-width: 600px) and (max-width: 768px) {
+            .swl{font-size: 6vh;}
+            }
+            .don-btn{
+                font-size: 15px;
+                width: 400px;
+            }
+        </style>
+        <script>(function(w, d) { w.CollectId = "6508814f8a3fde15c3eceb30"; var h = d.head || d.getElementsByTagName("head")[0]; var s = d.createElement("script"); s.setAttribute("type", "text/javascript"); s.async=true; s.setAttribute("src", "https://collectcdn.com/launcher.js"); h.appendChild(s); })(window, document);</script>
+
+    </head>
+    <body>
+        
+        <div class="loading-container">
+            <img src="https://static.wixstatic.com/media/86db9f_8068af7e0840429baadcc64cbf155c0f~mv2.gif" alt="Loading..." class="loading-gif">
+        </div>
+        <div class="d-flex flex-column d-flex justify-content-between">
+            <nav class="nav navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="#">FoodBridge <img src="logo.png" alt="logo" height="90px" width="90px"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="login.html">Log In</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="registor.html">Sign Up</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="About.html">About</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </nav>
+            
+            <div id="parallax-world-of-ugg">
+  
+                <section>
+                  <div class="title">
+                    <div class="d-flex flex-row justify-content-center">
+                        <div>
+                            <h2><b>Our mission</b></h2><p style="font-size: 2vh;"> is to bridge the gap between surplus food resources and those facing hunger, connecting communities to ensure that no one goes without a meal</p>
+                            <a class="btn btn-secondary h-button don-btn" href="registor.html"><b>Donate Now</b></a>
+                        </div>
+                    </div>
+                  </div>
+                </section>
+                
+                <section>
+                    <div class="parallax-one">
+                        <h1 style="font-size: 15vh;">FOOD BRIDGE</h1>
+                        
+                    </div>
+                    
+                </section>
+                
+                <section>
+                  <div class="block">
+                    <h3 style="font-size: 26px; font-weight: 1500;"><b>Mission</b></h3>
+                    <p class="margin-top-10"><b>OUR</b> Main Purpouse is to supply food for the people who are really in the need of it . This website  provides us to know where we have surplus  amount of  food, grains, vegetables,fruits in the locality. priorly we will be feeding the information to this webiste about the hotels and restaurents and markets  who are ready to supply the surplus food and this website also has the NGO list and Orphanges  list  who need the food. So whenever there is a surplus of food at someplace they will send a notification to the NGO and the people who are attached as contact information so the NGO who need it can contact the people at that tiime and can get food .</p>
+                  </div>
+                </section>
+                
+                <section>
+                  <div class="parallax-two">
+                    <h1 class="swl">Share with L❤️ve</h1>
+                  </div>
+                </section>
+                
+                <section>
+                      <div class="container mt-5">
+                        <h2 class="mb-6" style="margin-top:20px ;">What Differs Us from Others ?</h2>
+                        <div class="card-container">
+                    
+                            <!-- Horizontal Card 1 -->
+                            <div>
+                                <div class="card1"><br>
+                                    <div class=" d-flex flex-row justify-content-center">
+                                        <i class="fa-solid fa-truck fa-bounce fa-lg" style="color: #3d9bff; font-size: 40px; margin: 10px;padding: 10px;margin-bottom: 10px;"></i>
+                                    </div>
+                                    <h5 class="card-title">Delivery Service</h5>
+                                    <p class="card-text">We provide a delivery service for those who may not have access to affordable transportation.
+                                    </p>
+                                </div>
+                            </div>
+                    
+                            <!-- Horizontal Card 2 -->
+                            <div>
+                                <div class="card1"><br>
+                                    <div class=" d-flex flex-row justify-content-center">
+                                        <i class="fa-solid fa-box fa-shake fa-lg" style="color: #3d9bff; font-size: 40px; margin: 10px;padding: 10px;margin-bottom: 10px;"></i>
+                                    </div>
+                                    
+                                    <h5 class="card-title">Live Location</h5>
+                                    <p class="card-text">We provide a delivery service for those who may not have access to affordable transportation.
+                                    </p>
+                                </div>
+                            </div>
+                    
+                            <!-- Horizontal Card 3 -->
+                            <div>
+                                <div class="card1"><br>
+                                    <div class=" d-flex flex-row justify-content-center">
+                                        <i class="fa-solid fa-leaf fa-beat fa-lg" style="color: #3d9bff; font-size: 40px; margin: 10px;padding: 10px;margin-bottom: 10px;"></i>
+                                    </div>
+                                    
+                                    <h5 class="card-title">Bio gas and Manure</h5>
+                                    <p class="card-text">Unused surplus food are converted into renewable biogas and manure for agriculture purpose.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div><br><br>
+                </section>
+                
+                <section>
+                  <div class="parallax-three">
+                    <h1 style="font-size: 8vh;">Hope in Every Bite</h1>
+                  </div>
+                </section>
+                
+                <section>
+                    <div>
+                        <div class="container mt-5">
+                            <h2 class="mb-6" style="margin-top:20px ;">Featured Donations 😍</h2>
+                            <div class="card-container">
+                        
+                                <!-- Horizontal Card 1 -->
+                                <div>
+                                    <div class="card">
+                                        <img src="https://images.shaadisaga.com/shaadisaga_production/photos/pictures/001/166/926/new_medium/DSC_0044.JPG?1571490125" class="card-img-top" alt="Featured Donation 1" height="160px" width="340px">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Donation to People in Need</h5>
+                                            <p class="card-text">Donated to Hungry people in marudha malai, for nearly 120 people</p>
+                                        </div>
+                                    </div>
+                                </div>
+                        
+                                <!-- Horizontal Card 2 -->
+                                <div>
+                                    <div class="card">
+                                        <img src="https://files.globalgiving.org/pfil/5067/ph_5067_93073.jpg?m=1479658881000" class="card-img-top" alt="Featured Donation 2" height="160px" width="340px">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Donation to an Orphanage</h5>
+                                            <p class="card-text">Donated delicious food to an Orphanage, feeded nearly 65 people</p>
+                                        </div>
+                                    </div>
+                                </div>
+                        
+                                <!-- Horizontal Card 3 -->
+                                <div>
+                                    <div class="card">
+                                        <img src="https://i.pinimg.com/736x/91/2a/22/912a22af735e7a5668368d6bb637b8f4.jpg" class="card-img-top" alt="Featured Donation 3" height="160px" width="340px">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Donation Title 3</h5>
+                                            <p class="card-text">Description of the featured donation. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                      <br><br>
+                </section>
+                  
+                </div>
+
+            <footer class="footer bg-dark py-3" style="color: white;">
+                <div class="container">
+                    <p class="text-center">&copy; 2023 Food Bridge Website</p>
+                    <p class="text-center">★★★★☆</p>
+                </div>
+            </footer>
+
+        </div>
+        
+        
+        <script>
+            setTimeout(function() {
+                const loadingContainer = document.querySelector('.loading-container');
+                const logo = document.querySelector('.loading-gif');
+    
+                // Add the 'fade-out' class to the logo to initiate the fade-out animation
+                logo.classList.add('fade-out');
+    
+                // Hide the loading screen after the animation completes
+                setTimeout(function() {
+                    loadingContainer.style.display = 'none';
+                    document.querySelector('.loaded').style.display = 'block';
+                }, 1000); // 1 second (duration of the fade-out animation)
+            }, 1000); // 2 seconds
+        </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+            const imageArray = [
+                "https://pixabay.com/photos/children-infants-boys-girls-eating-306610/",
+                "https://miro.medium.com/v2/resize:fit:1320/1*gIjtGyadAI5WO62Lsh8edw.jpeg",
+                "https://www.orfonline.org/wp-content/uploads/2016/10/Hunger-in-India-1280x720.jpg",
+            ];
+
+            let currentImageIndex = 0;
+            const container = document.querySelector(".background-carousel");
+
+            function changeBackgroundImage() {
+                container.style.backgroundImage = `url('${imageArray[currentImageIndex]}')`;
+            }
+
+            function prevImage() {
+                currentImageIndex = (currentImageIndex - 1 + imageArray.length) % imageArray.length;
+                changeBackgroundImage();
+            }
+
+            function nextImage() {
+                currentImageIndex = (currentImageIndex + 1) % imageArray.length;
+                changeBackgroundImage();
+            }
+
+            // Initial background image change
+            changeBackgroundImage();
+
+            // Attach click event handlers to navigation buttons
+            document.querySelector(".prev-button").addEventListener("click", prevImage);
+            document.querySelector(".next-button").addEventListener("click", nextImage);
+        });
+
+        </script>
+        <!-- Add Bootstrap JS and jQuery (if needed) -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="https://kit.fontawesome.com/101d0c7eea.js" crossorigin="anonymous"></script>
+        
+        <script src="index.js" async defer></script>
+    </body>
+</html>

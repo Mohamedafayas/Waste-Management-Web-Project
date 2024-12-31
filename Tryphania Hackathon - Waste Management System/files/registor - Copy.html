@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration - Your Food Sharing Website</title>
+
+    <!-- Add Bootstrap CSS Link -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Add Custom CSS Here (if needed) -->
+    <style>
+        .back{
+            margin: 30px;
+        }
+        .card-width{
+            min-width: 40vw;
+            max-width: 50vw;
+        }
+        .button{
+            margin-top: 20px;
+            width: 100%;
+        }
+    </style>
+      <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword ,signOut} from "https://www.gstatic.com/firebasejs/10.3.1/firebase-auth.js";
+        import { getDatabase, set, ref } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-database.js";
+    
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyBxQnPXCpMvyDUDG7srwR5WUng09w5KijI",
+          authDomain: "hhhh-8a734.firebaseapp.com",
+          projectId: "hhhh-8a734",
+          storageBucket: "hhhh-8a734.appspot.com",
+          messagingSenderId: "633738181350",
+          appId: "1:633738181350:web:bbdf5f64492aff1e2c9927"
+        };
+    
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth();
+        const database = getDatabase(app);
+        
+        // Attach event listener to the form
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+          e.preventDefault();
+          
+          const email = document.getElementById('email').value;
+          const password = document.getElementById('password').value;
+    
+          createUserWithEmailAndPassword(auth, email, password)
+          .then((userCredential) => {
+            // Signed in 
+            const user = userCredential.user;
+    
+            set(ref(database, 'users/' + user.uid), {
+              email: email,
+              password: password
+            })
+            .then(() => {
+              // Data saved successfully!
+              alert('User created successfully');
+            })
+            .catch((error) => {
+              // The write failed...
+              alert(error);
+            });
+    
+            // ...redirect page
+            alert('User created successfully');
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            // ..
+            alert(errorMessage);
+          });
+        });
+        signOut(auth).then(() => {
+      // Sign-out successful.
+    }).catch((error) => {
+      // An error happened.
+    });
+      </script>
+</head>
+<body>
+    <a href="index.html">
+        <button class="btn btn-secondary back">Back</button>
+    </a>
+    <div class="container" style="margin-top: 20vh; margin-bottom: 20vh;">
+        <div class="row justify-content-center">
+            <div>
+                <div class="card-width">
+                    <div class="card">
+                        <div class="card-header">Registration</div>
+                        <div class="card-body">
+                            <form>
+                                <div class="form-group">
+                                    <label for="fullName">Full Name</label>
+                                    <input type="text" class="form-control" id="fullName" placeholder="Enter your full name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" class="form-control"  id="email" name="email" required placeholder="Enter your email">
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input type="password" class="form-control" id="password" name="password" required placeholder="Enter your password">
+                                </div>
+                                <button type="submit" value="Sign Up" class="button btn btn-primary">Register</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center;"><br>
+                    <a href="login.html" style="text-align: center;">Already Registered! Click here to Log in.</a>
+                </div>
+                
+            </div>
+            
+        </div>
+    </div>
+
+<!-- Add Bootstrap JS and jQuery (if needed) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

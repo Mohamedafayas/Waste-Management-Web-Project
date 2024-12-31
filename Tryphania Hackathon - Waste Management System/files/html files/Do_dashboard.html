@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create a Donation Dashboard - Your Food Sharing Website</title>
+
+    <!-- Add Bootstrap CSS Link -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+        .act{
+            margin: 5px;
+            width: 70px;
+            height: 40px;
+            font-size: 13px;
+        }
+        table{
+            font-size: 18px;
+        }
+        @media only screen and (max-width: 600px) and (max-width: 768px) {
+            table{
+                font-size: 14px;
+            } 
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar (You can include a navigation bar if needed) -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light d-flex flex-row justify-content-between">
+    <a class="navbar-brand" href="#">FoodBridge <img src="logo.png" alt="logo" height="90px" width="90px"></a>
+
+    <a href="index.html">
+        <button class="btn btn-secondary back">Back</button>
+    </a>
+    <!-- Include navigation links if needed -->
+</nav>
+
+<div class="container mt-5">
+    <h1 class="mb-4">Create a Donation Dashboard</h1>
+
+    <!-- Create a Donation Listing Section -->
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Create a Donation Listing</div>
+                <div class="card-body">
+                    <form>
+                        <!-- Donation listing form fields go here -->
+                        <div class="form-group">
+                            <label for="foodType">Food Type</label>
+                            <input type="text" class="form-control" id="foodType" placeholder="Enter the type of food">
+                        </div>
+                        <div class="form-group">
+                            <label for="quantity">Quantity</label>
+                            <input type="number" class="form-control" id="quantity" placeholder="Enter the quantity">
+                        </div>
+                        <div class="form-group">
+                            <label for="expiryDate">Expiry Date</label>
+                            <input type="date" class="form-control" id="expiryDate">
+                        </div>
+                        <div class="form-group">
+                            <label for="pickupLocation">Pick-up Location</label>
+                            <button class="form-control" id="showMapButton">Get the pick-up location</button>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Create Listing</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Create a Donation Listing Section -->
+    
+    <!-- Your Donation Listings Section -->
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <h2>Your Donation Listings</h2>
+            
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Food Type</th>
+                        <th>Quantity</th>
+                        <th>Expiry Date</th>
+                        <th>Pick-up Location</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- List your donation listings here -->
+                    <!-- Example row: -->
+                    <tr>
+                        <td>Meals</td>
+                        <td>20 units</td>
+                        <td>2023-09-30</td>
+                        <td>Gandhipuram</td>
+                        <td>
+                            <a href="#" class="btn btn-primary act">Edit</a>
+                            <a href="#" class="btn btn-danger act">Delete</a>
+                        </td>
+                    </tr>
+                    <tr id="displayrow" style="display: none;">
+                        <td><span id="savedfoodType"></span></td>
+                        <td><span id="savedquantity"></span></td>
+                        <td><span id="savedexpiryDate"></span></td>
+                        <td><span id="savedlocation"></span></td>
+                        <td>
+                            <a href="#" class="btn btn-primary act">Edit</a>
+                            <a href="#" class="btn btn-danger act">Delete</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- End of Your Donation Listings Section -->
+</div>
+<div id="map"></div>
+
+<script type="module">
+    // Function to initialize and display the map
+    function initMap() {
+        const map = L.map('map').setView([0, 0], 13); // Default view
+        const tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Get the user's location and set the map view to their coordinates
+        navigator.geolocation.getCurrentPosition(function(position) {
+            const userLocation = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
+            map.setView(userLocation, 13); // Zoom level may be adjusted as needed
+
+            // Create a marker at the user's location
+            L.marker(userLocation).addTo(map)
+                .bindPopup('Donation Rised')
+                .openPopup();
+        }, function() {
+            // Handle error when user's location cannot be determined
+            alert('Unable to retrieve your location.');
+        });
+    }
+
+    // Add an event listener to the button
+    document.getElementById('showMapButton').addEventListener('click', function() {
+        initMap();
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    // Get references to the form and the displayInfo div
+    var form = document.querySelector("form");
+    var displayrow = document.getElementById("displayrow");
+
+    // Add a form submit event listener
+    form.addEventListener("submit", function (event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        // Get the input values
+        var orgName = document.getElementById("orgName").value;
+        var orgDescription = document.getElementById("orgDescription").value;
+
+        // Display the saved information
+        document.getElementById("savedfoodType").textContent = foodType;
+        document.getElementById("savedquantity").textContent = quantity;
+        document.getElementById("savedexpiryDate").textContent = expiryDate;
+        document.getElementById("savedlocation").textContent = "Location";
+
+        // Hide the form and display the saved information
+        displayrow.style.display = "block";
+    });
+});
+</script>
+<!-- Add Bootstrap JS and jQuery (if needed) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Pinpoint Current Location</title>
+    <style>
+        /* Adjust map container size */
+        #map {
+            width: 100%;
+            height: 400px;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <button id="showLocationButton">Show My Location</button>
+
+    <script>
+        // Initialize the map
+        var map = L.map('map').setView([0, 0], 2);
+
+        // Add a tile layer using OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+        }).addTo(map);
+
+        var marker; // Declare the marker variable
+
+        // Function to show the current location on the map
+        function showCurrentLocationOnMap(position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+
+            if (marker) {
+                map.removeLayer(marker); // Remove previous marker if it exists
+            }
+
+            marker = L.marker([latitude, longitude]).addTo(map);
+
+            // Set the view to the new location
+            map.setView([latitude, longitude], 15);
+        }
+
+        // Handle the button click event to get the current location
+        document.getElementById('showLocationButton').addEventListener('click', function () {
+            if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition(showCurrentLocationOnMap);
+            } else {
+                alert("Geolocation is not available in your browser.");
+            }
+        });
+
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
+
